@@ -1,36 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Live Weather</title>
-</head>
-<body>
-  <h1>Weather in Your Location</h1>
-  <div id="weather">Getting your weather...</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amazing Songs</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Amazing Songs</h1>
+        <p>Embed Spotify tracks, albums, playlists</p>
+      </header>
 
-  <script>
-    function getWeather(lat, lon) {
-      const apiKey = "YOUR_API_KEY"; // Replace with your OpenWeatherMap API key
-      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
-      
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          const weatherDiv = document.getElementById("weather");
-          weatherDiv.innerHTML = `
-            <p><strong>Location:</strong> ${data.name}</p>
-            <p><strong>Condition:</strong> ${data.weather[0].description}</p>
-            <p><strong>Temperature:</strong> ${data.main.temp}°F</p>
-          `;
-        });
-    }
+      <section class="input-section">
+        <label for="spotifyUrl">Paste a Spotify link or URI:</label>
+        <div class="input-row">
+          <input id="spotifyUrl" type="text" placeholder="https://open.spotify.com/track/..." />
+          <button id="addBtn">Add</button>
+          <button id="clearBtn" class="danger">Clear</button>
+        </div>
+        <p class="hint">Tip: In Spotify click ••• → Share → Copy Song Link.</p>
+      </section>
 
-    navigator.geolocation.getCurrentPosition(
-      pos => getWeather(pos.coords.latitude, pos.coords.longitude),
-      err => {
-        document.getElementById("weather").innerText = "Location access denied.";
-      }
-    );
-  </script>
-</body>
+      <section id="embedsContainer" class="embeds"></section>
+
+      <footer>
+        <p>Built with ❤️ — paste Spotify links to embed songs.</p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
 </html>
